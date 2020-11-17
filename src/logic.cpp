@@ -25,6 +25,37 @@ void logic::menu_head()
     cout << "2. Exit" << endl; 
 }
 
+bool logic::check(string prompt, string word, int lives)
+{
+    int answer;
+    if(prompt == word){
+        cout << "Congratulations! You won!\nDo you want to exit to menu?" << endl;
+    } else if(lives < 0){
+        cout << "You lose!\nDo you want to exit to menu?" << endl;
+    }
+    cout << "1. Yes.\n2. No." << endl;
+    cin >> answer;
+    switch(answer){
+        case 1:
+        {
+            return true;
+            break;
+        }
+        case 2:
+        {
+            return false;
+            break;
+        }
+        default:
+        {
+            cout << "Warning! Choose 1 or 2!" << endl;
+            return false;
+            check(prompt, word, lives);
+            break;
+        }
+    }
+}
+
 void logic::main_function(string word)
 {
     menu_head();
@@ -47,7 +78,7 @@ void logic::main_function(string word)
                 int position = word.find(letter);
                 if(word.find(letter) != string::npos){
                     cout << "You are right!" << endl;
-                    cout << word[position];
+                    cout << word[position] << endl;
                     for(unsigned int i = 0; i < word.size(); i++){
                         if(word[i] == letter){
                             prompt[i] = word[position];
@@ -59,8 +90,19 @@ void logic::main_function(string word)
                 }
                 cout << prompt << endl;
             }
+            if(check(prompt, word, lives)){
+                choise(&word);
+                main_function(word);
+            } else {
+                cout << "Goodbye!" << endl;
+                exit(0);
+            }
+            break;
         }
         case 2:
+        {
             exit(0);
+            break;
+        }
     }
 }
