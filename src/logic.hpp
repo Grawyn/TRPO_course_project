@@ -4,9 +4,9 @@
 
 using namespace std;
 
-class words{
+class logic{
 public:
     void choise(string *word);
     void menu_head();
-    void main_function();
+    void main_function(string word);
 };

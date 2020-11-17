@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void words::choise(string *word)
+void logic::choise(string *word)
 {
     srand((unsigned)time(NULL));
     int n = 6; // Количество слов в файле
@@ -25,7 +25,7 @@ void menu_head()
     cout << "2. Exit" << endl; 
 }
 
-void main_function(string word)
+void logic::main_function(string word)
 {
     menu_head();
     int choose;
