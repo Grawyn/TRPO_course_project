@@ -17,7 +17,7 @@ void logic::choise(string *word)
     }
 }
 
-void menu_head()
+void logic::menu_head()
 {
     cout << "Welcome to Hangman." << endl;
     cout << "Choose a menu item:" << endl;
@@ -29,6 +29,7 @@ void logic::main_function(string word)
 {
     menu_head();
     int choose;
+    char letter;
     cin >> choose;
     switch(choose)
     {
@@ -38,6 +39,26 @@ void logic::main_function(string word)
             string prompt(word.size(),'-');
             int lives = 6; // Максимальное количество попыток
             cout << prompt << endl;
+            while(lives > 0 && prompt != word)
+            {
+                cout << "Enter the letter" << endl;
+                cin >> letter;
+                letter = toupper(letter); //Перевод буквы в верхний регистр
+                int position = word.find(letter);
+                if(word.find(letter) != string::npos){
+                    cout << "You are right!" << endl;
+                    cout << word[position];
+                    for(unsigned int i = 0; i < word.size(); i++){
+                        if(word[i] == letter){
+                            prompt[i] = word[position];
+                        }
+                    }
+                } else {
+                    lives--;
+                    cout << "Didn't guess! You have " << lives << "lives" << endl; 
+                }
+                cout << prompt << endl;
+            }
         }
         case 2:
             exit(0);
