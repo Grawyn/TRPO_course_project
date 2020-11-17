@@ -30,7 +30,7 @@ bool logic::check(string prompt, string word, int lives)
     int answer;
     if(prompt == word){
         cout << "Congratulations! You won!\nDo you want to exit to menu?" << endl;
-    } else if(lives < 0){
+    } else if(lives <= 0){
         cout << "You lose!\nDo you want to exit to menu?" << endl;
     }
     cout << "1. Yes.\n2. No." << endl;
@@ -56,6 +56,23 @@ bool logic::check(string prompt, string word, int lives)
     }
 }
 
+void match_letter(string& word, char& letter, string& prompt, int& position, int& lives)
+{
+    if(word.find(letter) != string::npos){
+        cout << "You are right!" << endl;
+        cout << word[position] << endl;
+        for(unsigned int i = 0; i < word.size(); i++){
+            if(word[i] == letter){
+                prompt[i] = word[position];
+            } 
+        }
+    } else {
+        lives--;
+        cout << "Didn't guess! You have " << lives << "lives" << endl; 
+    }
+    cout << prompt << endl;
+}
+
 void logic::main_function(string word)
 {
     menu_head();
@@ -76,33 +93,26 @@ void logic::main_function(string word)
                 cin >> letter;
                 letter = toupper(letter); //Перевод буквы в верхний регистр
                 int position = word.find(letter);
-                if(word.find(letter) != string::npos){
-                    cout << "You are right!" << endl;
-                    cout << word[position] << endl;
-                    for(unsigned int i = 0; i < word.size(); i++){
-                        if(word[i] == letter){
-                            prompt[i] = word[position];
-                        }
-                    }
-                } else {
-                    lives--;
-                    cout << "Didn't guess! You have " << lives << "lives" << endl; 
-                }
-                cout << prompt << endl;
+                match_letter(word, letter, prompt, position, lives);
             }
             if(check(prompt, word, lives)){
                 choise(&word);
                 main_function(word);
             } else {
-                cout << "Goodbye!" << endl;
-                exit(0);
+                 cout << "Goodbye!" << endl;
+                 exit(0);
             }
-            break;
+        break;
         }
         case 2:
         {
             exit(0);
             break;
+        }
+        default:
+        {
+            cout << "Warning! Choose 1 or 2!" << endl;
+            main_function(word);
         }
     }
 }
