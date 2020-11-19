@@ -1,11 +1,12 @@
+#include "logic.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
-#include "logic.hpp"
 
 using namespace std;
 
-int main(){
+int main()
+{
     string the_word;
     logic logic;
     logic.choise(&the_word);
