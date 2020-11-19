@@ -104,9 +104,8 @@ void logic::main_function(string word)
         exit(0);
         break;
     }
-    default: {
+    default:
         cout << "Warning! Choose 1 or 2!" << endl;
         main_function(word);
-    }
     }
 }
